@@ -10,7 +10,7 @@ setup(
     url='https://github.com/DrCelesteTurquoise/Celeste.git',
     author='vino',
     author_email='your_email@example.com',
-    description='VION',
+    description='VIONDDDD',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
 )
