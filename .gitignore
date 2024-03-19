@@ -1,0 +1,11 @@
+# 忽略 secret.txt 文件
+#secret.txt
+
+# 忽略 logs 文件夹及其内容
+#logs/
+
+poetry.lock
+pyproject.toml
+.replit
+replit.nix
+.local/share
