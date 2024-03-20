@@ -16,3 +16,6 @@ def create():
     
         # 回复消息给客户端
         socket.send_string("服务端收到消息: {}".format(message))
+
+if __name__ == "__main__":
+  create()

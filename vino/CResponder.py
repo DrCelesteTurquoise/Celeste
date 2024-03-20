@@ -15,3 +15,6 @@ def create():
         # 处理请求（这里简单地回复一个消息）
         response = "Hello, this is the responder."
         responder.send_string(response)
+
+if __name__ == "__main__":
+  create()

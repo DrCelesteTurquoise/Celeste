@@ -15,3 +15,6 @@ def create():
         response = requester.recv_string()
         print(f"Received response: {response}")
 
+if __name__ == "__main__":
+  create()
+

@@ -14,3 +14,6 @@ def create():
     # 等待服务器回复
     reply = socket.recv_string()
     print("从服务器收到回复: ", reply)
+
+if __name__ == "__main__":
+  create()
