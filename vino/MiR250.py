@@ -1,5 +1,7 @@
 import requests, json
 
+# test push from local TDai
+
 # get request
 ip = '192.168.12.20'
 host = 'http://' + ip + '/api/v2.0.0/'
