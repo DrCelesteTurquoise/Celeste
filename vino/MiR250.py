@@ -1,6 +1,7 @@
 import requests, json
 
-# test push from local TDai
+# test push from local TDai and test if the name is correct
+# why there is no response
 
 # get request
 ip = '192.168.12.20'
