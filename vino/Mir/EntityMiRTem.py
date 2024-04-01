@@ -1,11 +1,11 @@
-# SDL in ANL Entity Template Version 1.0 by TDai
+# SDL in ANL Entity MiR mobile robot Template Version 1.0 by TDai
 
 import sys
 import time
 import zmq
 import os
 
-def start_entity_name(Entity_name, sub_addr, sub_port, pub_addr, pub_port):
+def start_entity_MiR(Entity_name, sub_addr, sub_port, pub_addr, pub_port):
     print(f"{Entity_name} Start")
 
     context = zmq.Context()
@@ -49,4 +49,4 @@ if __name__ == "__main__":
     sub_port = "5555"
     pub_addr = "*"
     pub_port = "5515"
-    start_entity_name(Entity_name, sub_addr, sub_port, pub_addr, pub_port)
+    start_entity_MiR(Entity_name, sub_addr, sub_port, pub_addr, pub_port)
