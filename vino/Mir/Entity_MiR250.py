@@ -5,6 +5,50 @@ import time
 import zmq
 import os
 
+import requests
+import json
+
+ip = '192.168.12.20'
+host = 'http://' + ip + '/api/v2.0.0/'
+
+headers = {}
+headers['Content-Type'] = 'application/json'
+headers['Authorization'] = 'Basic RGlzdHJpYnV0b3I6NjJmMmYwZjFlZmYxMGQzMTUyYzk1ZjZmMDU5NjU3NmU0ODJiYjhlNDQ4MDY0MzNmNGNmOTI5NzkyODM0YjAxNA=='
+
+        
+def mission_status_template(host):
+    url = 'status'
+    get_request = requests.get(host+url)
+    status_code = get_request.status_code
+    if status_code == 200:
+        txt = get_request.text
+        status_dict = json.loads(txt)
+        
+        battery_percentage = float(status_dict.get('battery_percentage'))
+        state = str(status_dict.get('state_text'))
+        
+        print('Battery Percentage:', int(battery_percentage))
+        print('Status:', state)
+    else:
+        print('MiRError:', status_code)
+        
+def mission_complete_check(host):
+    
+    while True:
+        # check every 3 sec 
+        time.sleep(3)
+        url = 'status'
+        get_request = requests.get(host+url)
+        txt = get_request.text
+        status_dict = json.loads(txt)        
+        state = str(status_dict.get('state_text'))
+        
+        if state == 'Ready':
+            break       
+        else:
+            continue
+
+
 def start_entity_MiR(Entity_name, sub_addr, sub_port, pub_addr, pub_port):
     print(f"{Entity_name} Start")
 
@@ -28,13 +72,28 @@ def start_entity_MiR(Entity_name, sub_addr, sub_port, pub_addr, pub_port):
         topic, cmd = sub.recv_multipart()
         print(topic.decode(), cmd.decode())
         cmd = cmd.decode()
-        if cmd == '1':
-            time.sleep(4)
-            pub.send_string(f'{Entity_name} 1 Completed\n')
-            print(f'{Entity_name} 1 Completed\n')
-        elif cmd == '2':
-            time.sleep(4)
-            pub.send_string(f'{Entity_name} 2 Completed\n')
+        if cmd == 'GPC':
+                        
+            mission_id = {"mission_id": "b0a59fbe-e87e-11ee-a42c-00012978ede1"} #TDaiGPC
+            requests.post(host + 'mission_queue', json = mission_id, headers = headers)
+            
+            # mission complete check every three secs
+            mission_complete_check(host)           
+            time.sleep(1)
+            
+            pub.send_string(f'{Entity_name}: To GPC Completed\n')
+            print(f'{Entity_name} To GPC Completed\n')
+        elif cmd == 'Charger':
+            
+            mission_id = {"mission_id": "099a22b7-e878-11ee-a42c-00012978ede1"} #TDaiCharger
+            requests.post(host + 'mission_queue', json = mission_id, headers = headers)
+            
+            # mission complete check every three secs
+            mission_complete_check(host)           
+            time.sleep(1)
+            
+            pub.send_string(f'{Entity_name}: To Charger Completed\n')
+            print(f'{Entity_name} To Charger Completed\n')
         elif cmd == '3':
             pub.send_string(f'{Entity_name} 3 Completed\n')
         else:
@@ -44,7 +103,7 @@ def start_entity_MiR(Entity_name, sub_addr, sub_port, pub_addr, pub_port):
             sys.exit(1)
 
 if __name__ == "__main__":
-    Entity_name = "ChemXXX"
+    Entity_name = "MiR250"
     sub_addr = "localhost"
     sub_port = "5555"
     pub_addr = "*"
