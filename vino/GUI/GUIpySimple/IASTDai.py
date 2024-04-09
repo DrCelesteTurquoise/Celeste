@@ -1,7 +1,10 @@
 # SDL Control Panel TDai 0.0 Version
 
 import PySimpleGUI as sg
-import WorkFlowEditor
+#import WorkFlowEditor
+import CommTestW
+import ConfigW
+import glv
 import sys
 
 # Main Control Panel Window
@@ -9,7 +12,7 @@ import sys
 def make_window(theme):
 
     sg.theme(theme)  # 'Lightgreen'
-    layout = [[sg.Text('SDL Control Panel TDai', font='Calibri 23 italic bold underline')],
+    layout = [[sg.Text('ANL SDL Control Panel TDai', font='Calibri 23 italic bold underline')],
               [sg.Text('Available Features:', font='Calibri 18')],
               [sg.Text('Input 1:', font='Calibri 13 italic bold'),
                sg.Text('Communication test with the desired entity', font='Calibri 13')],
@@ -17,7 +20,7 @@ def make_window(theme):
               [sg.Text('Input 3:', font='Calibri 13 italic bold'), sg.Text('Close', font='Calibri 13')],
               [sg.Text('Enter your command', font='Calibri 13'), sg.InputText()],
               [sg.Button('GO'), sg.Button('Exit')]]
-    window_main = sg.Window('IAS Control Panel', layout)
+    window_main = sg.Window('SDL Control Panel', layout)
     return window_main
 
 
@@ -26,20 +29,19 @@ def main():
     window_main = make_window(sg.theme('Lightgreen'))
     while True:
         event, values = window_main.read()
-        if event == sg.WIN_CLOSED or event == 'Exit':
-            
-            print('Exit')
+        if event == sg.WIN_CLOSED or event == 'Exit':          
+            glv.g_host_pub.close()
+            glv.g_host_sub.close()
+            glv.context.term()
 
             break
 
         if values[0] == '1':
-            print('comm test')
-            # sg.popup('Entities - IAS Control Panel', 'Number of current online KUKA：', len(glv.g_conn_pool),
-            #          'Entities Addresses', glv.g_conn_poolAddr, icon=r'IMG\IAS.ico')
+            CommTestW.communication()
 
         elif values[0] == '2':
             print('perform workflow')
-            WorkFlowEditor.workflow()
+            #WorkFlowEditor.workflow()
         
         elif values[0] == '3':
             sys.exit()
@@ -48,6 +50,8 @@ def main():
 
 
 if __name__ == '__main__':
+    ConfigW.configuration()
+    ConfigW.init()
     main()
 
 
