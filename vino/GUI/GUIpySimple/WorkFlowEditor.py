@@ -14,19 +14,19 @@ def make_window():
 
         [sg.Text('Please edit your workflow in this tab')],
 
-        [sg.InputText('Name: KUKA3; CMD: Position: LCMS, ChemS, SynLED, Home, ChargeS, WaitP4ChemS', size=(80, 1),
+        [sg.InputText('Name: MiR250; CMD: Position: LCMS, ChemS, SynLED, Home, ChargeS, WaitP4ChemS', size=(80, 1),
                       use_readonly_for_disable=True, disabled=True, key='-IN-')],
         [sg.InputText(
-            'Name: KUKA3; CMD: Action: Charge, LcmsRacksInChemS, LcmsRacksInLcms, LcmsRacksOutChemS, LcmsRacksOutLcms',
+            'Name: UR5e; CMD: Action: Charge, LcmsRacksInChemS, LcmsRacksInLcms, LcmsRacksOutChemS, LcmsRacksOutLcms',
             size=(80, 1), use_readonly_for_disable=True, disabled=True, key='-IN-')],
         [sg.InputText(
-            'Name: KUKA3; CMD: Action: VialsInChemS, VialsInSynLED, VialsOutChemS, VialsOutSynLED, VialsHolderRefillSynLEDRE',
+            'Name: UR5e; CMD: Action: VialsInChemS, VialsInSynLED, VialsOutChemS, VialsOutSynLED, VialsHolderRefillSynLEDRE',
             size=(80, 1), use_readonly_for_disable=True, disabled=True, key='-IN-')],
-        [sg.InputText('Name: LCMS; CMD: Action: InsertRack1,2; ExtractRack1,2; StartAnalysisRack1,2', size=(80, 1),
+        [sg.InputText('Name: KLA; CMD: Action: InsertRack1,2; ExtractRack1,2; StartAnalysisRack1,2', size=(80, 1),
                       use_readonly_for_disable=True, disabled=True, key='-IN-')],
-        [sg.InputText('Name: ChemSDoor; CMD: Action: Open, Close', size=(80, 1), use_readonly_for_disable=True,
+        [sg.InputText('Name: ChemSpeed; CMD: Action: Open, Close', size=(80, 1), use_readonly_for_disable=True,
                       disabled=True, key='-IN-')],
-        [sg.InputText('Name: ChemS; CMD: Action: ExecuteDispensing, ExecuteReformat', size=(80, 1),
+        [sg.InputText('Name: GPC; CMD: Action: ExecuteDispensing, ExecuteReformat', size=(80, 1),
                       use_readonly_for_disable=True, disabled=True, key='-IN-')],
 
         [sg.Text('Name:', font='Calibri 8 italic bold'), sg.InputText()],
@@ -87,7 +87,7 @@ def make_window():
 
 
 def workflow():
-    window = make_window()
+    window = make_window(sg.theme('Lightgreen'))
 
     # This is an Event Loop
     while True:

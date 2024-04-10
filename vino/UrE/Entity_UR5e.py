@@ -104,8 +104,8 @@ def start_entity_UR5e(Entity_name, sub_addr, sub_port, pub_addr, pub_port, ur5e_
             
             pub.send_string(f'{Entity_name} Action TDai Completed\n')
             print(f'{Entity_name} Action TDai Completed\n')
-        elif cmd == 'TDai2':
-            ur5eremote.sendAndReceive('load TDai2.urp')
+        elif cmd == 'ToolChangeDemo':
+            ur5eremote.sendAndReceive('load TDaiToolChangeDemo.urp')
             time.sleep(2)
             ur5eremote.sendAndReceive('play')
             ur5eremote.program_complete_check()
