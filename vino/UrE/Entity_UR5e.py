@@ -130,9 +130,9 @@ def start_entity_UR5e(Entity_name, sub_addr, sub_port, pub_addr, pub_port, ur5e_
 
 if __name__ == "__main__":
     Entity_name = "UR5e"
-    sub_addr = "localhost"
-    sub_port = "5555"
-    pub_addr = "*"
-    pub_port = "5515"
+    sub_addr = "192.168.12.246" # host
+    sub_port = "56666" # host
+    pub_addr = "192.168.12.246"
+    pub_port = "56626"
     ur5e_ip = '192.168.12.249'
     start_entity_UR5e(Entity_name, sub_addr, sub_port, pub_addr, pub_port, ur5e_ip)
