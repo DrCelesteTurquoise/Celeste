@@ -1,13 +1,13 @@
 # SDL Control Panel TDai 0.0 Version
 
 import PySimpleGUI as sg
-#import WorkFlowEditor
+import WorkFlowEditor
 import CommTestW
 import ConfigW
 import glv
 import sys
 
-# Main Control Panel Window
+
 
 def make_window(theme):
 
@@ -40,8 +40,7 @@ def main():
             CommTestW.communication()
 
         elif values[0] == '2':
-            print('perform workflow')
-            #WorkFlowEditor.workflow()
+            WorkFlowEditor.workflow()
         
         elif values[0] == '3':
             sys.exit()

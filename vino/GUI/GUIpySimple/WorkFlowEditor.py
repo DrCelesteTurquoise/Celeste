@@ -2,11 +2,7 @@ import PySimpleGUI as sg
 import glv
 import time
 import datetime
-import csv
-import pandas as pd
-import os
-import shutil
-import json
+
 
 
 def make_window():
@@ -14,19 +10,22 @@ def make_window():
 
         [sg.Text('Please edit your workflow in this tab')],
 
-        [sg.InputText('Name: MiR250; CMD: Position: LCMS, ChemS, SynLED, Home, ChargeS, WaitP4ChemS', size=(80, 1),
+        [sg.InputText('Name: MiR250; CMD: Position: ChemSpeed, KLA, GPC, N9, Charger', size=(80, 1),
                       use_readonly_for_disable=True, disabled=True, key='-IN-')],
         [sg.InputText(
-            'Name: UR5e; CMD: Action: Charge, LcmsRacksInChemS, LcmsRacksInLcms, LcmsRacksOutChemS, LcmsRacksOutLcms',
+            'Name: UR5e; CMD: Action: ToolChangeDemo, B',
             size=(80, 1), use_readonly_for_disable=True, disabled=True, key='-IN-')],
         [sg.InputText(
-            'Name: UR5e; CMD: Action: VialsInChemS, VialsInSynLED, VialsOutChemS, VialsOutSynLED, VialsHolderRefillSynLEDRE',
+            'Name: N9; CMD: Action: A, B',
             size=(80, 1), use_readonly_for_disable=True, disabled=True, key='-IN-')],
-        [sg.InputText('Name: KLA; CMD: Action: InsertRack1,2; ExtractRack1,2; StartAnalysisRack1,2', size=(80, 1),
+        [sg.InputText(
+            'Name: Tecan; CMD: Action: A, B',
+            size=(80, 1), use_readonly_for_disable=True, disabled=True, key='-IN-')],
+        [sg.InputText('Name: KLA; CMD: Action: A, B, C', size=(80, 1),
                       use_readonly_for_disable=True, disabled=True, key='-IN-')],
-        [sg.InputText('Name: ChemSpeed; CMD: Action: Open, Close', size=(80, 1), use_readonly_for_disable=True,
+        [sg.InputText('Name: ChemSpeed; CMD: Action: A, B', size=(80, 1), use_readonly_for_disable=True,
                       disabled=True, key='-IN-')],
-        [sg.InputText('Name: GPC; CMD: Action: ExecuteDispensing, ExecuteReformat', size=(80, 1),
+        [sg.InputText('Name: GPC; CMD: Action: A, B', size=(80, 1),
                       use_readonly_for_disable=True, disabled=True, key='-IN-')],
 
         [sg.Text('Name:', font='Calibri 8 italic bold'), sg.InputText()],
@@ -72,16 +71,15 @@ def make_window():
                       # [sg.Output(size=(60,15), font='Courier 8', expand_x=True, expand_y=True)]
                       ]
 
-    layout_WF = [[sg.Text('Intelligent Automation System Control Panel', font='Calibri 23 italic bold underline')],
+    layout_WF = [[sg.Text('ANL SDL Control Panel', font='Calibri 23 italic bold underline')],
                  [sg.Text('Create your workflow online or Upload your predefined workflow:', font='Calibri 18')]]
 
     layout_WF += [[sg.TabGroup([[sg.Tab('Workflow Online Editor', OnlineEdit_layout),
                                  sg.Tab('Workflow Upload', UploadWF_layout),
                                  sg.Tab('Workflow Progress', logging_layout)
-                                 ]], key='-TAB GROUP-', expand_x=True, expand_y=True), ],
-                  [sg.Image(r'IMG\UoL.png', subsample=2), sg.Image(r'IMG\logoACL.png', subsample=2)]]
+                                 ]], key='-TAB GROUP-', expand_x=True, expand_y=True), ]]
 
-    window_WFNEW = sg.Window('Execute workflows - IAS Control Panel', layout_WF, icon=r'IMG\IAS.ico')
+    window_WFNEW = sg.Window('Execute workflows - SDL Control Panel', layout_WF)
 
     return window_WFNEW
 
@@ -100,34 +98,15 @@ def workflow():
                 name = values[i]
                 if len(name) == 0:
                     time.sleep(1)
+                    sg.Popup('Names and commands cannot be empty, would exit in 3 secs')
+                    time.sleep(3)
                     break
                 msg = values[i + 1]
-
-                # add if condition here to check if send cmd to kuka4, if kuka4 then skip the first replys
-
-                if name == 'KUKA4':
-                    glv.g_host_pub.send_multipart([name.encode(), msg.encode()])
-                    # kuka4hostsent = glv.g_host_sub.recv_string()
-                    kuka4hostsent = glv.g_host_sub.recv_multipart()
-                    received_message = b"".join(kuka4hostsent)
-                    print('EntityKUKA4Host sent message:'+received_message.decode('utf-8'),
-                          datetime.datetime.now().strftime('%H:%M:%S %d-%m-%Y'), '\n')
-                    feedback = glv.g_host_sub.recv_string()
-                    if 'Completed' in feedback:
-                        time.sleep(1)
-                        print(feedback,
-                              datetime.datetime.now().strftime('%H:%M:%S %d-%m-%Y'), '\n')
-                        i += 2
-                    else:
-                        time.sleep(1)
-                        print(feedback,
-                              datetime.datetime.now().strftime('%H:%M:%S %d-%m-%Y'), '\n')
-                        break
-
-                elif name == 'Host':
+ 
+                if name == 'Host':
                     if msg == 'PauseToRefill':
                         refill = sg.popup_ok_cancel('Do you finish the refill work?', 'Press Ok to proceed',
-                                                    'Press cancel to stop', title='OkCancel', icon=r'IMG\IAS.ico')
+                                                    'Press cancel to stop', title='OkCancel')
                         if refill == 'OK':
 
                             print('Refill work done and continue',
@@ -142,7 +121,7 @@ def workflow():
 
                     elif msg == 'SafetyCheck':
                         safetycheck = sg.popup_ok_cancel('Do you finish the safety check work?', 'Press Ok to proceed',
-                                                         'Press cancel to stop', title='OkCancel', icon=r'IMG\IAS.ico')
+                                                         'Press cancel to stop', title='OkCancel')
                         if safetycheck == 'OK':
 
                             print('Safety check work done and continue',
@@ -199,27 +178,10 @@ def workflow():
                               datetime.datetime.now().strftime('%H:%M:%S %d-%m-%Y'), '\n')
                         break
 
-                    if name == 'KUKA4':
-                        glv.g_host_pub.send_multipart([name.encode(), msg.encode()])
-                        kuka4hostsent = glv.g_host_sub.recv_multipart()
-                        received_message = b"".join(kuka4hostsent)
-                        print('EntityKUKA4Host sent message:' + received_message.decode('utf-8'),
-                              datetime.datetime.now().strftime('%H:%M:%S %d-%m-%Y'), '\n')
-                        feedback = glv.g_host_sub.recv_string()
-                        if 'Completed' in feedback:
-                            time.sleep(1)
-                            print(feedback,
-                                  datetime.datetime.now().strftime('%H:%M:%S %d-%m-%Y'), '\n')
-                        else:
-                            time.sleep(1)
-                            print(feedback,
-                                  datetime.datetime.now().strftime('%H:%M:%S %d-%m-%Y'), '\n')
-                            break
-
-                    elif name == 'Host':
+                    if name == 'Host':
                         if msg == 'PauseToRefill':
                             refill = sg.popup_ok_cancel('Do you finish the refill work?', 'Press Ok to proceed',
-                                                        'Press cancel to stop', title='OkCancel', icon=r'IMG\IAS.ico')
+                                                        'Press cancel to stop', title='OkCancel')
                             if refill == 'OK':
 
                                 print('Refill work done and continue',
@@ -233,7 +195,7 @@ def workflow():
 
                         elif msg == 'SafetyCheck':
                             safetycheck = sg.popup_ok_cancel('Do you finish the safety check work?', 'Press Ok to proceed',
-                                                        'Press cancel to stop', title='OkCancel', icon=r'IMG\IAS.ico')
+                                                        'Press cancel to stop', title='OkCancel')
                             if safetycheck == 'OK':
 
                                 print('Safety check work done and continue',
