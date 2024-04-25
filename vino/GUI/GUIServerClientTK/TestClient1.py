@@ -1,5 +1,5 @@
 
-# import all the required modul
+# import all the required m
 import socket
 import threading
 from tkinter import *
