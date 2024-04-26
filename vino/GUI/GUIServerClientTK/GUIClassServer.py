@@ -2,7 +2,7 @@ import tkinter as tk
 import zmq
 import threading
 
-class ZmqServer:
+class QServer:
     def __init__(self, root):
         self.root = root
         self.context = zmq.Context()
@@ -63,5 +63,5 @@ class ZmqServer:
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("Server")
-    server = ZmqServer(root)
+    server = QServer(root)
     root.mainloop()
