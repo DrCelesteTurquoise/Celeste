@@ -5,7 +5,9 @@ import datetime
 
 
 
-def make_window():
+def make_window(theme):
+    
+    sg.theme(theme)
     OnlineEdit_layout = [
 
         [sg.Text('Please edit your workflow in this tab')],
@@ -23,7 +25,7 @@ def make_window():
             size=(80, 1), use_readonly_for_disable=True, disabled=True, key='-IN-')],
         [sg.InputText('Name: KLA; CMD: Action: A, B, C', size=(80, 1),
                       use_readonly_for_disable=True, disabled=True, key='-IN-')],
-        [sg.InputText('Name: ChemSpeed; CMD: Action: A, B', size=(80, 1), use_readonly_for_disable=True,
+        [sg.InputText('Name: ChemSpeed; CMD: Action: SimDemo, CapDemo', size=(80, 1), use_readonly_for_disable=True,
                       disabled=True, key='-IN-')],
         [sg.InputText('Name: GPC; CMD: Action: A, B', size=(80, 1),
                       use_readonly_for_disable=True, disabled=True, key='-IN-')],
@@ -87,7 +89,6 @@ def make_window():
 def workflow():
     window = make_window(sg.theme('Lightgreen'))
 
-    # This is an Event Loop
     while True:
         event, values = window.read(timeout=100)
         if event == "Exit" or event == 'Exit ' or event == sg.WIN_CLOSED:
@@ -98,8 +99,6 @@ def workflow():
                 name = values[i]
                 if len(name) == 0:
                     time.sleep(1)
-                    sg.Popup('Names and commands cannot be empty, would exit in 3 secs')
-                    time.sleep(3)
                     break
                 msg = values[i + 1]
  
