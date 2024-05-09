@@ -13,7 +13,7 @@ def configuration():
     layout_configuration = [
         [sg.Text('ANL SDL Control Panel', font='Calibri 23 italic bold underline')],
         [sg.Text('Please finish the Host Configuration:', font='Calibri 18')],
-        [sg.Text('Host IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.246')],
+        [sg.Text('Host IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.247')],
         [sg.Text('Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56666)],
         [sg.Button('GO'), sg.Button('Exit')]]
     window_configuration = sg.Window('SDL Control Panel Launcher', layout_configuration)
@@ -36,8 +36,8 @@ def init():
     glv.g_host_pub.bind(f"tcp://{glv.host_ip}:{glv.host_port}")
     
     glv.g_host_sub = glv.context.socket(zmq.SUB)
-    glv.g_host_sub.connect("tcp://192.168.12.246:56616")  # MiR
-    glv.g_host_sub.connect("tcp://192.168.12.246:56626")  # UR5e
+    glv.g_host_sub.connect("tcp://192.168.12.247:56616")  # MiR
+    glv.g_host_sub.connect("tcp://192.168.12.247:56626")  # UR5e
     glv.g_host_sub.connect("tcp://192.168.12.230:56636")  # ChemS
     glv.g_host_sub.connect("tcp://192.168.12.240:56646")  # KLA
     glv.g_host_sub.connect("tcp://192.168.12.200:56656")  # GPC

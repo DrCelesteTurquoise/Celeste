@@ -94,8 +94,17 @@ def start_entity_MiR(Entity_name, sub_addr, sub_port, pub_addr, pub_port):
             
             pub.send_string(f'{Entity_name}: To Charger Completed\n')
             print(f'{Entity_name} To Charger Completed\n')
-        elif cmd == '3':
-            pub.send_string(f'{Entity_name} 3 Completed\n')
+        elif cmd == 'ChemSpeed':
+            
+            mission_id = {"mission_id": "2deb6dd8-0e43-11ef-9d95-00012978ede1"} #TDaiGPC
+            requests.post(host + 'mission_queue', json = mission_id, headers = headers)
+            
+            # mission complete check every three secs
+            mission_complete_check(host)           
+            time.sleep(1)
+            
+            pub.send_string(f'{Entity_name}: To ChemSpeed Completed\n')
+            print(f'{Entity_name} To ChemSpeed Completed\n')
         else:
             print('Error! Plz rerun this file. Exit in 3 secs')
             pub.send_string(f'{Entity_name} Error in Host Command\n')
@@ -104,8 +113,8 @@ def start_entity_MiR(Entity_name, sub_addr, sub_port, pub_addr, pub_port):
 
 if __name__ == "__main__":
     Entity_name = "MiR250"
-    sub_addr = "192.168.12.246"
+    sub_addr = "192.168.12.247"
     sub_port = "56666"
-    pub_addr = "192.168.12.246"
+    pub_addr = "192.168.12.247"
     pub_port = "56616"
     start_entity_MiR(Entity_name, sub_addr, sub_port, pub_addr, pub_port)

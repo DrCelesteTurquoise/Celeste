@@ -113,15 +113,15 @@ def start_entity_UR5e(Entity_name, sub_addr, sub_port, pub_addr, pub_port, ur5e_
             
             pub.send_string(f'{Entity_name} Action ToolChangeDemo Completed\n')
             print(f'{Entity_name} Action ToolChangeDemo Completed\n')
-        elif cmd == 'TDai3':
-            ur5eremote.sendAndReceive('load TDai3.urp')
+        elif cmd == 'LoadVial2ChemS':
+            ur5eremote.sendAndReceive('load TDaiLoadVial2ChemS.urp')
             time.sleep(2)
             ur5eremote.sendAndReceive('play')
             ur5eremote.program_complete_check()
             time.sleep(1)
             
-            pub.send_string(f'{Entity_name} Action TDai3 Completed\n')
-            print(f'{Entity_name} Action TDai3 Completed\n')
+            pub.send_string(f'{Entity_name} Action TDaiLoadVial2ChemS Completed\n')
+            print(f'{Entity_name} Action TDaiLoadVial2ChemS Completed\n')
         else:
             print('Error! Plz rerun this file. Exit in 3 secs')
             pub.send_string(f'{Entity_name} Error in Host Command\n')
@@ -130,9 +130,9 @@ def start_entity_UR5e(Entity_name, sub_addr, sub_port, pub_addr, pub_port, ur5e_
 
 if __name__ == "__main__":
     Entity_name = "UR5e"
-    sub_addr = "192.168.12.246" # host
+    sub_addr = "192.168.12.247" # host
     sub_port = "56666" # host
-    pub_addr = "192.168.12.246"
+    pub_addr = "192.168.12.247"
     pub_port = "56626"
     ur5e_ip = '192.168.12.249'
     start_entity_UR5e(Entity_name, sub_addr, sub_port, pub_addr, pub_port, ur5e_ip)

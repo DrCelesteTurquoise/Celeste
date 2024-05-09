@@ -31,7 +31,7 @@ def mission_complete_check(host):
 
 # mission_id = {"mission_id": "b0a59fbe-e87e-11ee-a42c-00012978ede1"} #TDaiGPC
 # requests.post(host + 'mission_queue', json = mission_id, headers = headers)
-
+'''
 mission_id = {"mission_id": "099a22b7-e878-11ee-a42c-00012978ede1"} #TDaiCharger
 requests.post(host + 'mission_queue', json = mission_id, headers = headers)
 
@@ -39,6 +39,7 @@ mission_complete_check(host)
 
 print('Complete')
 
+'''
 
 """ url = 'status'
 get_request = requests.get(host+url)
@@ -70,9 +71,9 @@ if status == 200:
 
 #print(get_position_types.text)
 
-#get_missions = requests.get(host + 'missions', headers = headers)
+get_missions = requests.get(host + 'missions', headers = headers)
 
-#print(get_missions.text)
+print(get_missions.text)
 
 ### this is how we remote control the mir
 
