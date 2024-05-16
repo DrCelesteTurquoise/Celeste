@@ -9,3 +9,4 @@ pyproject.toml
 .replit
 replit.nix
 .local/share
+.DS_Store
