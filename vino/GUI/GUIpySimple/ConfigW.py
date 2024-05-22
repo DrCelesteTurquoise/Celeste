@@ -42,6 +42,8 @@ def init():
     glv.g_host_sub.connect("tcp://192.168.12.240:56646")  # KLA
     glv.g_host_sub.connect("tcp://192.168.12.200:56656")  # GPC
     glv.g_host_sub.connect("tcp://192.168.12.220:56676")  # Tecan
+    glv.g_host_sub.connect("tcp://192.168.12.248:11111")  # TestPC AmScope
+    glv.g_host_sub.connect("tcp://192.168.12.248:11110")  # TestPC Calculator
     #glv.g_host_sub.connect("tcp://192.168.12.250:56686")  # Unknow 2
     glv.g_host_sub.setsockopt_string(zmq.SUBSCRIBE, '')
 
