@@ -1,10 +1,9 @@
 # SDL in ANL Entity MiR250 Version 1.0 by TDai
 
+import PySimpleGUI as sg
 import sys
 import time
 import zmq
-import os
-
 import requests
 import json
 
@@ -15,7 +14,39 @@ headers = {}
 headers['Content-Type'] = 'application/json'
 headers['Authorization'] = 'Basic RGlzdHJpYnV0b3I6NjJmMmYwZjFlZmYxMGQzMTUyYzk1ZjZmMDU5NjU3NmU0ODJiYjhlNDQ4MDY0MzNmNGNmOTI5NzkyODM0YjAxNA=='
 
+
+def configuration():
+
+    sg.theme('Lightgreen')
+    layout_configuration = [
+        [sg.Text('ANL SDL MiR250 Control Panel', font='Calibri 23 italic bold underline')],
+        [sg.Text('Please finish MiR250 Configuration:', font='Calibri 18')],
         
+        [sg.Text('Entity_name', font='Calibri 13 italic bold'), sg.InputText(default_text='MiR250')],
+        
+        [sg.Text('sub_addr IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.247')],
+        [sg.Text('sub_port Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56666)],
+        [sg.Text('pub_addr IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.247')],
+        [sg.Text('pub_port Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56616)],
+        
+        [sg.Button('OK&GO'), sg.Button('Exit')]]
+    window_configuration = sg.Window('MiR250 Configuration Launcher', layout_configuration)
+
+    while True:
+        event, values = window_configuration.read()
+        if event == sg.WIN_CLOSED or event == 'Exit':
+            sys.exit()
+        Entity_name = values[0]
+        sub_addr = values[1]
+        sub_port = int(values[2])
+        pub_addr = values[3]
+        pub_port = int(values[4])
+
+        break
+    window_configuration.close()
+    return Entity_name, sub_addr, sub_port, pub_addr, pub_port
+
+
 def mission_status_template(host):
     url = 'status'
     get_request = requests.get(host+url)
@@ -105,6 +136,18 @@ def start_entity_MiR(Entity_name, sub_addr, sub_port, pub_addr, pub_port):
             
             pub.send_string(f'{Entity_name}: To ChemSpeed Completed\n')
             print(f'{Entity_name} To ChemSpeed Completed\n')
+            
+        elif cmd == 'Exit':
+            
+            pub.send_string(f'{Entity_name}: Exit Completed\n')
+            print(f'{Entity_name} Exit Completed\n')
+            
+            sub.close()
+            pub.close()
+            context.term()
+            time.sleep(1)
+            sys.exit()            
+            
         else:
             print('Error! Plz rerun this file. Exit in 3 secs')
             pub.send_string(f'{Entity_name} Error in Host Command\n')
@@ -112,9 +155,5 @@ def start_entity_MiR(Entity_name, sub_addr, sub_port, pub_addr, pub_port):
             sys.exit(1)
 
 if __name__ == "__main__":
-    Entity_name = "MiR250"
-    sub_addr = "192.168.12.247"
-    sub_port = "56666"
-    pub_addr = "192.168.12.247"
-    pub_port = "56616"
+    Entity_name, sub_addr, sub_port, pub_addr, pub_port = configuration()
     start_entity_MiR(Entity_name, sub_addr, sub_port, pub_addr, pub_port)

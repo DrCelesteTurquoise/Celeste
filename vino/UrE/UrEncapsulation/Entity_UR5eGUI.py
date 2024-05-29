@@ -1,9 +1,9 @@
 # SDL in ANL Entity UR5e Version 1.0 by TDai
 
+import PySimpleGUI as sg
 import sys
 import time
 import zmq
-import os
 import socket
 import logging
 
@@ -57,6 +57,39 @@ class UR5eRemote:
 
     def close(self):
         self.sock.close()
+
+
+
+def configuration():
+
+    sg.theme('Lightgreen')
+    layout_configuration = [
+        [sg.Text('ANL SDL UR5e Control Panel', font='Calibri 23 italic bold underline')],
+        [sg.Text('Please finish UR5e Configuration:', font='Calibri 18')],
+        
+        [sg.Text('Entity_name', font='Calibri 13 italic bold'), sg.InputText(default_text='UR5e')],
+        
+        [sg.Text('sub_addr IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.247')],
+        [sg.Text('sub_port Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56666)],
+        [sg.Text('pub_addr IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.247')],
+        [sg.Text('pub_port Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56626)],
+        
+        [sg.Button('OK&GO'), sg.Button('Exit')]]
+    window_configuration = sg.Window('UR5e Configuration Launcher', layout_configuration)
+
+    while True:
+        event, values = window_configuration.read()
+        if event == sg.WIN_CLOSED or event == 'Exit':
+            sys.exit()
+        Entity_name = values[0]
+        sub_addr = values[1]
+        sub_port = int(values[2])
+        pub_addr = values[3]
+        pub_port = int(values[4])
+
+        break
+    window_configuration.close()
+    return Entity_name, sub_addr, sub_port, pub_addr, pub_port
 
 
 
@@ -122,6 +155,18 @@ def start_entity_UR5e(Entity_name, sub_addr, sub_port, pub_addr, pub_port, ur5e_
             
             pub.send_string(f'{Entity_name} Action TDaiLoadVial2ChemS Completed\n')
             print(f'{Entity_name} Action TDaiLoadVial2ChemS Completed\n')
+            
+        elif cmd == 'Exit':          
+            pub.send_string(f'{Entity_name}: Exit Completed\n')
+            print(f'{Entity_name} Exit Completed\n')
+            
+            sub.close()
+            pub.close()
+            context.term()
+            ur5eremote.close()
+            time.sleep(1)
+            sys.exit()  
+            
         else:
             print('Error! Plz rerun this file. Exit in 3 secs')
             pub.send_string(f'{Entity_name} Error in Host Command\n')
@@ -129,10 +174,7 @@ def start_entity_UR5e(Entity_name, sub_addr, sub_port, pub_addr, pub_port, ur5e_
             sys.exit(1)
 
 if __name__ == "__main__":
-    Entity_name = "UR5e"
-    sub_addr = "192.168.12.247" # host
-    sub_port = "56666" # host
-    pub_addr = "192.168.12.247"
-    pub_port = "56626"
+    
     ur5e_ip = '192.168.12.249'
+    Entity_name, sub_addr, sub_port, pub_addr, pub_port = configuration()
     start_entity_UR5e(Entity_name, sub_addr, sub_port, pub_addr, pub_port, ur5e_ip)
