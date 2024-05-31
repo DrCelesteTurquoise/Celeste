@@ -10,29 +10,29 @@ def configuration():
     layout_configuration = [
         [sg.Text('ANL SDL Main Control Panel Configuration - TDai', font='Calibri 23 italic bold underline')],
         [sg.Text('Please finish the Configuration:', font='Calibri 18')],
-        [sg.Text('Host IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.247')],
+        [sg.Text('Host IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.246')],
         [sg.Text('Host Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56666)],
         
-        [sg.Text('MiR250 IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.247')],
+        [sg.Text('MiR250 IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.246')],
         [sg.Text('MiR250 Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56616)],
         
-        [sg.Text('UR5e IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.247')],
+        [sg.Text('UR5e IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.246')],
         [sg.Text('UR5e Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56626)],
         
-        [sg.Text('ChemSpeed IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.247')],
+        [sg.Text('ChemSpeed IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.230')],
         [sg.Text('ChemSpeed Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56636)],
         
-        [sg.Text('KLA IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.247')],
+        [sg.Text('KLA IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.246')],
         [sg.Text('KLA Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56646)],
         
-        [sg.Text('GPC IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.247')],
+        [sg.Text('GPC IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.246')],
         [sg.Text('GPC Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56656)],
         
-        [sg.Text('Tecan IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.247')],
+        [sg.Text('Tecan IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.246')],
         [sg.Text('Tecan Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56676)],
         
         [sg.Button('OK&GO'), sg.Button('Exit')]]
-    window_configuration = sg.Window('Control Panel Configuration Launcher - TDai', layout_configuration)
+    window_configuration = sg.Window('Control Panel Configuration Launcher - TDai', layout_configuration, icon=r'E:\workProject\UChicagoProjects\Project1\Celeste\vino\GUI\GUIEncapsulation\IMG\tree.ico').read(close=True)
 
     while True:
         event, values = window_configuration.read()
