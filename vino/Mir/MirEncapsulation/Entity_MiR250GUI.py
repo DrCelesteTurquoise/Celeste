@@ -24,13 +24,13 @@ def configuration():
         
         [sg.Text('Entity_name', font='Calibri 13 italic bold'), sg.InputText(default_text='MiR250')],
         
-        [sg.Text('sub_addr IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.247')],
+        [sg.Text('sub_addr IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.246')],
         [sg.Text('sub_port Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56666)],
-        [sg.Text('pub_addr IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.247')],
+        [sg.Text('pub_addr IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.246')],
         [sg.Text('pub_port Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56616)],
         
         [sg.Button('OK&GO'), sg.Button('Exit')]]
-    window_configuration = sg.Window('MiR250 Configuration Launcher', layout_configuration)
+    window_configuration = sg.Window('MiR250 Configuration Launcher', layout_configuration, icon=r'C:\NFTT\BTC\Test\VINODDD\MiR250\MirEncapsulation\IMG\mir250.ico')
 
     while True:
         event, values = window_configuration.read()

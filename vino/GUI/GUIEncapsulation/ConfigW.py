@@ -32,7 +32,8 @@ def configuration():
         [sg.Text('Tecan Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56676)],
         
         [sg.Button('OK&GO'), sg.Button('Exit')]]
-    window_configuration = sg.Window('Control Panel Configuration Launcher - TDai', layout_configuration, icon=r'E:\workProject\UChicagoProjects\Project1\Celeste\vino\GUI\GUIEncapsulation\IMG\tree.ico').read(close=True)
+    window_configuration = sg.Window('Control Panel Configuration Launcher - TDai', layout_configuration, icon=r'C:\NFTT\BTC\Test\VINODDD\Main\IMG\tree.ico')
+    
 
     while True:
         event, values = window_configuration.read()

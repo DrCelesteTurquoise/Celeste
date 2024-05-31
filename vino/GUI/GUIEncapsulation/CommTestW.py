@@ -15,7 +15,7 @@ def communication():
         [sg.Text('CMD:', font='Calibri 13 italic bold'), sg.InputText()],
         [sg.Button('OK'), sg.Button('Exit')]]
     
-    window_Smsg = sg.Window('Communication Test - SDL Control Panel', layout_Smsg)
+    window_Smsg = sg.Window('Communication Test - SDL Control Panel - TDai', layout_Smsg, icon=r'C:\NFTT\BTC\Test\VINODDD\Main\IMG\tree.ico')
     while True:
         event, values = window_Smsg.read()
         if event == "Exit" or event == sg.WIN_CLOSED:

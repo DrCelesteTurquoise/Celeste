@@ -20,7 +20,7 @@ def make_window(theme):
               [sg.Text('Input 3:', font='Calibri 13 italic bold'), sg.Text('Close', font='Calibri 13')],
               [sg.Text('Enter your command', font='Calibri 13'), sg.InputText()],
               [sg.Button('GO'), sg.Button('Exit')]]
-    window_main = sg.Window('Main Control Panel', layout, icon='IMG/IAS.ico')
+    window_main = sg.Window('Main Control Panel - TDai', layout, icon=r'C:\NFTT\BTC\Test\VINODDD\Main\IMG\tree.ico')
     return window_main
 
 

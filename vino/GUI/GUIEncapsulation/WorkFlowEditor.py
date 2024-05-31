@@ -81,7 +81,7 @@ def make_window(theme):
                                  sg.Tab('Workflow Progress', logging_layout)
                                  ]], key='-TAB GROUP-', expand_x=True, expand_y=True), ]]
 
-    window_WFNEW = sg.Window('Execute workflows - SDL Control Panel', layout_WF)
+    window_WFNEW = sg.Window('Execute workflows - SDL Control Panel - TDai', layout_WF, icon=r'C:\NFTT\BTC\Test\VINODDD\Main\IMG\tree.ico')
 
     return window_WFNEW
 
