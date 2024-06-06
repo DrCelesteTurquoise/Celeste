@@ -3,9 +3,6 @@ import glv
 import time
 import datetime
 
-import shutil
-import os
-
 
 
 def make_window(theme):
@@ -67,19 +64,7 @@ def make_window(theme):
 
     UploadWF_layout = [[sg.T('Please upload your predefined workflow in this tab')],
                        [sg.ProgressBar(100, orientation='h', size=(20, 20), key='-PROGRESS BAR-'),
-                        sg.Button('Upload_WF'), sg.Button('Exit ')]]
-    
-    Upload_ChemS_Config_layout = [[sg.T('Please upload your predefined configuration file to ChemSpeed in this tab')],
-                       [sg.ProgressBar(100, orientation='h', size=(20, 20), key='-PROGRESS BAR-'),
-                        sg.Button('Upload_to_ChemSpeed'), sg.Button('Exit ')]]
-    
-    Upload_N9_1_Config_layout = [[sg.T('Please upload your predefined configuration file to N9_1 in this tab')],
-                       [sg.ProgressBar(100, orientation='h', size=(20, 20), key='-PROGRESS BAR-'),
-                        sg.Button('Upload_to_N9_1'), sg.Button('Exit ')]]
-    
-    Upload_N9_2_Config_layout = [[sg.T('Please upload your predefined configuration file to N9_2 in this tab')],
-                       [sg.ProgressBar(100, orientation='h', size=(20, 20), key='-PROGRESS BAR-'),
-                        sg.Button('Upload_to_N9_2'), sg.Button('Exit ')]]
+                        sg.Button('Upload'), sg.Button('Exit ')]]
 
     logging_layout = [[sg.Text("Your workflow progress will display here")],
                       [sg.Multiline(size=(60, 15), font='Courier 8', expand_x=True, expand_y=True, write_only=True,
@@ -92,9 +77,6 @@ def make_window(theme):
                  [sg.Text('Create your workflow online or Upload your predefined workflow:', font='Calibri 18')]]
 
     layout_WF += [[sg.TabGroup([[sg.Tab('Workflow Online Editor', OnlineEdit_layout),
-                                 sg.Tab('Upload Config file to ChemSpeed', Upload_ChemS_Config_layout),
-                                 sg.Tab('Upload Config file to N9_1', Upload_N9_1_Config_layout),
-                                 sg.Tab('Upload Config file to N9_2', Upload_N9_2_Config_layout),
                                  sg.Tab('Workflow Upload', UploadWF_layout),
                                  sg.Tab('Workflow Progress', logging_layout)
                                  ]], key='-TAB GROUP-', expand_x=True, expand_y=True), ]]
@@ -177,38 +159,8 @@ def workflow():
                         print(feedback,
                               datetime.datetime.now().strftime('%H:%M:%S %d-%m-%Y'), '\n')
                         break
-        
-        elif event == 'Upload_to_ChemSpeed':
-            print('Going to upload the predefined Config to ChemSpeed!',
-                  datetime.datetime.now().strftime('%H:%M:%S %d-%m-%Y'), '\n')
-            Predefined_Config = sg.popup_get_file('Choose your file', keep_on_top=True)
-            sg.popup("You chose: " + str(Predefined_Config), keep_on_top=True)
-            
-            source_file = r"C:\path\to\your\file.txt"
-            dest_path = r"C:\path\to\your\file.txt"
-            shutil.move(source_file, dest_path)
-            
-        elif event == 'Upload_to_N9_1':
-            print('Going to upload the predefined Config to N9_1!',
-                  datetime.datetime.now().strftime('%H:%M:%S %d-%m-%Y'), '\n')
-            Predefined_Config = sg.popup_get_file('Choose your file', keep_on_top=True)
-            sg.popup("You chose: " + str(Predefined_Config), keep_on_top=True)
-            
-            source_file = r"C:\path\to\your\file.txt"
-            dest_path = r"C:\path\to\your\file.txt"
-            shutil.move(source_file, dest_path)
-            
-        elif event == 'Upload_to_N9_2':
-            print('Going to upload the predefined Config to N9_2!',
-                  datetime.datetime.now().strftime('%H:%M:%S %d-%m-%Y'), '\n')
-            Predefined_Config = sg.popup_get_file('Choose your file', keep_on_top=True)
-            sg.popup("You chose: " + str(Predefined_Config), keep_on_top=True)
-            
-            source_file = r"C:\path\to\your\file.txt"
-            dest_path = r"C:\path\to\your\file.txt"
-            shutil.move(source_file, dest_path)
-        
-        elif event == 'Upload_WF':
+
+        elif event == 'Upload':
             print('Going to upload the predefined workflow!',
                   datetime.datetime.now().strftime('%H:%M:%S %d-%m-%Y'), '\n')
             Predefined_WF = sg.popup_get_file('Choose your file', keep_on_top=True)
