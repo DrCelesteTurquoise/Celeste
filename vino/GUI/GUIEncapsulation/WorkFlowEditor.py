@@ -184,9 +184,9 @@ def workflow():
             Predefined_Config = sg.popup_get_file('Choose your file', keep_on_top=True)
             sg.popup("You chose: " + str(Predefined_Config), keep_on_top=True)
             
-            source_file = r"C:\path\to\your\file.txt"
-            dest_path = r"C:\path\to\your\file.txt"
-            shutil.move(source_file, dest_path)
+            source_file = Predefined_Config
+            dest_path = r"\\192.168.12.230\Users\Operator\Desktop\AutoWF\files"
+            shutil.copy(source_file, dest_path)
             
         elif event == 'Upload_to_N9_1':
             print('Going to upload the predefined Config to N9_1!',
@@ -194,9 +194,9 @@ def workflow():
             Predefined_Config = sg.popup_get_file('Choose your file', keep_on_top=True)
             sg.popup("You chose: " + str(Predefined_Config), keep_on_top=True)
             
-            source_file = r"C:\path\to\your\file.txt"
+            source_file = Predefined_Config
             dest_path = r"C:\path\to\your\file.txt"
-            shutil.move(source_file, dest_path)
+            shutil.copy(source_file, dest_path)
             
         elif event == 'Upload_to_N9_2':
             print('Going to upload the predefined Config to N9_2!',
@@ -204,9 +204,9 @@ def workflow():
             Predefined_Config = sg.popup_get_file('Choose your file', keep_on_top=True)
             sg.popup("You chose: " + str(Predefined_Config), keep_on_top=True)
             
-            source_file = r"C:\path\to\your\file.txt"
+            source_file = Predefined_Config
             dest_path = r"C:\path\to\your\file.txt"
-            shutil.move(source_file, dest_path)
+            shutil.copy(source_file, dest_path)
         
         elif event == 'Upload_WF':
             print('Going to upload the predefined workflow!',
