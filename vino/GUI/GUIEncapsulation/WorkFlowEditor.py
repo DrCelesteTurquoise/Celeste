@@ -21,7 +21,7 @@ def make_window(theme):
             'Name: UR5e; CMD: Action: ToolChangeDemo, B',
             size=(80, 1), use_readonly_for_disable=True, disabled=True, key='-IN-')],
         [sg.InputText(
-            'Name: N9; CMD: Action: A, B',
+            'Name: N91 or N92; CMD: Action: A, B',
             size=(80, 1), use_readonly_for_disable=True, disabled=True, key='-IN-')],
         [sg.InputText(
             'Name: Tecan; CMD: Action: A, B',
@@ -73,13 +73,13 @@ def make_window(theme):
                        [sg.ProgressBar(100, orientation='h', size=(20, 20), key='-PROGRESS BAR-'),
                         sg.Button('Upload_to_ChemSpeed'), sg.Button('Exit ')]]
     
-    Upload_N9_1_Config_layout = [[sg.T('Please upload your predefined configuration file to N9_1 in this tab')],
+    Upload_N9_1_Config_layout = [[sg.T('Please upload your predefined configuration file to N91 in this tab')],
                        [sg.ProgressBar(100, orientation='h', size=(20, 20), key='-PROGRESS BAR-'),
-                        sg.Button('Upload_to_N9_1'), sg.Button('Exit ')]]
+                        sg.Button('Upload_to_N91'), sg.Button('Exit ')]]
     
-    Upload_N9_2_Config_layout = [[sg.T('Please upload your predefined configuration file to N9_2 in this tab')],
+    Upload_N9_2_Config_layout = [[sg.T('Please upload your predefined configuration file to N92 in this tab')],
                        [sg.ProgressBar(100, orientation='h', size=(20, 20), key='-PROGRESS BAR-'),
-                        sg.Button('Upload_to_N9_2'), sg.Button('Exit ')]]
+                        sg.Button('Upload_to_N92'), sg.Button('Exit ')]]
 
     logging_layout = [[sg.Text("Your workflow progress will display here")],
                       [sg.Multiline(size=(60, 15), font='Courier 8', expand_x=True, expand_y=True, write_only=True,
@@ -93,8 +93,8 @@ def make_window(theme):
 
     layout_WF += [[sg.TabGroup([[sg.Tab('Workflow Online Editor', OnlineEdit_layout),
                                  sg.Tab('Upload Config file to ChemSpeed', Upload_ChemS_Config_layout),
-                                 sg.Tab('Upload Config file to N9_1', Upload_N9_1_Config_layout),
-                                 sg.Tab('Upload Config file to N9_2', Upload_N9_2_Config_layout),
+                                 sg.Tab('Upload Config file to N91', Upload_N9_1_Config_layout),
+                                 sg.Tab('Upload Config file to N92', Upload_N9_2_Config_layout),
                                  sg.Tab('Workflow Upload', UploadWF_layout),
                                  sg.Tab('Workflow Progress', logging_layout)
                                  ]], key='-TAB GROUP-', expand_x=True, expand_y=True), ]]
@@ -188,8 +188,8 @@ def workflow():
             dest_path = r"\\192.168.12.230\Users\Operator\Desktop\AutoWF\files"
             shutil.copy(source_file, dest_path)
             
-        elif event == 'Upload_to_N9_1':
-            print('Going to upload the predefined Config to N9_1!',
+        elif event == 'Upload_to_N91':
+            print('Going to upload the predefined Config to N91!',
                   datetime.datetime.now().strftime('%H:%M:%S %d-%m-%Y'), '\n')
             Predefined_Config = sg.popup_get_file('Choose your file', keep_on_top=True)
             sg.popup("You chose: " + str(Predefined_Config), keep_on_top=True)
@@ -198,8 +198,8 @@ def workflow():
             dest_path = r"C:\path\to\your\file.txt"
             shutil.copy(source_file, dest_path)
             
-        elif event == 'Upload_to_N9_2':
-            print('Going to upload the predefined Config to N9_2!',
+        elif event == 'Upload_to_N92':
+            print('Going to upload the predefined Config to N92!',
                   datetime.datetime.now().strftime('%H:%M:%S %d-%m-%Y'), '\n')
             Predefined_Config = sg.popup_get_file('Choose your file', keep_on_top=True)
             sg.popup("You chose: " + str(Predefined_Config), keep_on_top=True)
