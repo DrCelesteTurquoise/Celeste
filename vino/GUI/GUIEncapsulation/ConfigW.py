@@ -63,8 +63,8 @@ def configuration():
         glv.tecan_ip = values[12]
         glv.tecan_port = int(values[13])
         
-        glv.N92_ip = values[12]
-        glv.N92_port = int(values[13])
+        glv.N92_ip = values[14]
+        glv.N92_port = int(values[15])
 
         break
     window_configuration.close()
