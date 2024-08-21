@@ -4,6 +4,8 @@ import sys
 import time
 import zmq
 import os
+import n92
+
 
 def start_entity_N92(Entity_name, sub_addr, sub_port, pub_addr, pub_port):
     print(f"{Entity_name} Start")
@@ -28,15 +30,20 @@ def start_entity_N92(Entity_name, sub_addr, sub_port, pub_addr, pub_port):
         topic, cmd = sub.recv_multipart()
         print(topic.decode(), cmd.decode())
         cmd = cmd.decode()
-        if cmd == '1':
+        if cmd == 'Home':
+            n92.home_robot()
+            pub.send_string(f'{Entity_name} Home Completed\n')
+            print(f'{Entity_name} Home Completed\n')
+        elif cmd == 'SelfHealing':
             time.sleep(4)
-            pub.send_string(f'{Entity_name} 1 Completed\n')
-            print(f'{Entity_name} 1 Completed\n')
-        elif cmd == '2':
-            time.sleep(4)
-            pub.send_string(f'{Entity_name} 2 Completed\n')
-        elif cmd == '3':
-            pub.send_string(f'{Entity_name} 3 Completed\n')
+            n92.self_healing_wf()
+            pub.send_string(f'{Entity_name} SelfHealing Completed\n')
+        elif cmd == 'Snapshot':
+            folder = 'captured_photos'
+            interval = 30  # every 30mins
+            duration = 48   # last for 48h
+            n92.snapshot(folder, interval, duration)
+            pub.send_string(f'{Entity_name} Snapshot Completed\n')
         else:
             print('Error! Plz rerun this file. Exit in 3 secs')
             pub.send_string(f'{Entity_name} Error in Host Command\n')
