@@ -49,23 +49,33 @@ def snapshot(folder_path, interval_minutes, duration_hours):
         cv2.destroyAllWindows()
     
 def self_healing_wf():
-    c9.home_robot()
-    c9.move_robot_cts(*locations.fixed_modules_loc['blade']['pre_pos'])
-    c9.open_gripper
-    time.sleep(1)
-    c9.move_robot_cts(*locations.fixed_modules_loc['blade']['pos'])
-    time.sleep(1)
-    c9.close_gripper
-    time.sleep(1)
-    c9.move_robot_cts(*locations.fixed_modules_loc['blade']['pre_pos'])
+    # c9.move_robot_cts(45,21362,34078,9660) #straightline
+    c9.move_robot_cts(45,30265,40010,10363)
+    # c9.move_robot_cts(*locations.fixed_modules_loc['blade']['pre_pos'])
+    # c9.open_gripper
+    # time.sleep(1)
+    # c9.move_robot_cts(*locations.fixed_modules_loc['blade']['pos'])
+    # time.sleep(1)
+    # c9.close_gripper
+    # time.sleep(1)
+    # c9.move_robot_cts(*locations.fixed_modules_loc['blade']['pre_pos'])
     
     # need to go to the first wafer in move xy mode then run the loop to cut different samples
     
+    # goto the 1th pos for the wafer:
+    time.sleep(1)
+    c9.move_robot_cts(265,31456,25005,12416)
+    time.sleep(1)
+    
     for wafer_pos in locations.selfhealing_wafers_loc.values():
-        c9.move_robot_cts(*wafer_pos['pre_pos'])
-        c9.move_robot_cts(*wafer_pos['pos'])
-        c9.move_z('?')
-        c9.move_robot_cts(*wafer_pos['pre_pos'])
+        c9.move_xy(*wafer_pos['pre_pos'])
+        time.sleep(1)
+        c9.move_z(159.5)
+        time.sleep(1)
+        c9.move_z(168)
+        time.sleep(1)
+    
+    c9.move_robot_cts(45,30265,40010,10363)
         
 
 def self_healing_wf_future():
@@ -131,16 +141,15 @@ def self_healing_wf_future():
     
     # c9.move_robot_cts(*locations.prevacuumgripper_pos) # preVacuumGripper pos
 
-def qiaomu_wf():
-    c9.home_robot()
-
     
 if __name__ == '__main__':
     # print('cool')
+    time.sleep(5)
+    self_healing_wf()
     
-    #self_healing_wf()
+    
     # snapshot
-    folder = 'captured_photos'
-    interval = 1  # every 1min
-    duration = 48   # last 48h
-    snapshot(folder, interval, duration)
+    # folder = 'captured_photos'
+    # interval = 1  # every 1min
+    # duration = 48   # last 48h
+    # snapshot(folder, interval, duration)
