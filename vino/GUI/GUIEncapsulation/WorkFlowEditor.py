@@ -21,7 +21,10 @@ def make_window(theme):
             'Name: UR5e; CMD: Action: ToolChangeDemo, B',
             size=(80, 1), use_readonly_for_disable=True, disabled=True, key='-IN-')],
         [sg.InputText(
-            'Name: N91 or N92; CMD: Action: A, B',
+            'Name: N91; CMD: Action: Measure, B',
+            size=(80, 1), use_readonly_for_disable=True, disabled=True, key='-IN-')],
+        [sg.InputText(
+            'Name: N92; CMD: Action: Selfhealing, B',
             size=(80, 1), use_readonly_for_disable=True, disabled=True, key='-IN-')],
         [sg.InputText(
             'Name: Tecan; CMD: Action: A, B',
@@ -32,18 +35,6 @@ def make_window(theme):
                       disabled=True, key='-IN-')],
         [sg.InputText('Name: GPC; CMD: Action: A, B', size=(80, 1),
                       use_readonly_for_disable=True, disabled=True, key='-IN-')],
-
-        [sg.Text('Name:', font='Calibri 8 italic bold'), sg.InputText()],
-        [sg.Text('CMD:', font='Calibri 8 italic bold'), sg.InputText()],
-
-        [sg.Text('Name:', font='Calibri 8 italic bold'), sg.InputText()],
-        [sg.Text('CMD:', font='Calibri 8 italic bold'), sg.InputText()],
-
-        [sg.Text('Name:', font='Calibri 8 italic bold'), sg.InputText()],
-        [sg.Text('CMD:', font='Calibri 8 italic bold'), sg.InputText()],
-
-        [sg.Text('Name:', font='Calibri 8 italic bold'), sg.InputText()],
-        [sg.Text('CMD:', font='Calibri 8 italic bold'), sg.InputText()],
 
         [sg.Text('Name:', font='Calibri 8 italic bold'), sg.InputText()],
         [sg.Text('CMD:', font='Calibri 8 italic bold'), sg.InputText()],
@@ -99,7 +90,7 @@ def make_window(theme):
                                  sg.Tab('Workflow Progress', logging_layout)
                                  ]], key='-TAB GROUP-', expand_x=True, expand_y=True), ]]
 
-    window_WFNEW = sg.Window('Execute workflows - SDL Control Panel - TDai', layout_WF, icon=r'C:\NFTT\BTC\Test\VINODDD\Main\IMG\tree.ico')
+    window_WFNEW = sg.Window('Execute workflows - SDL Control Panel - TDai', layout_WF, resizable=True, icon=r'C:\NFTT\BTC\Test\VINODDD\Main\IMG\tree.ico')
 
     return window_WFNEW
 

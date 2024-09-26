@@ -113,8 +113,8 @@ def start_entity_MiR(Entity_name, sub_addr, sub_port, pub_addr, pub_port):
 
 if __name__ == "__main__":
     Entity_name = "MiR250"
-    sub_addr = "192.168.12.247"
+    sub_addr = "192.168.12.246"
     sub_port = "56666"
-    pub_addr = "192.168.12.247"
+    pub_addr = "192.168.12.246"
     pub_port = "56616"
     start_entity_MiR(Entity_name, sub_addr, sub_port, pub_addr, pub_port)

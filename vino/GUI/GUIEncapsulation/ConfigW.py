@@ -31,11 +31,14 @@ def configuration():
         [sg.Text('Tecan IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.246')],
         [sg.Text('Tecan Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56676)],
         
+        [sg.Text('N91 IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.231')],
+        [sg.Text('N91 Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56696)],
+        
         [sg.Text('N92 IP', font='Calibri 13 italic bold'), sg.InputText(default_text='192.168.12.246')],
         [sg.Text('N92 Port Number', font='Calibri 13 italic bold'), sg.InputText(default_text=56686)],
         
         [sg.Button('OK&GO'), sg.Button('Exit')]]
-    window_configuration = sg.Window('Control Panel Configuration Launcher - TDai', layout_configuration, icon=r'C:\NFTT\BTC\Test\VINODDD\Main\IMG\tree.ico')
+    window_configuration = sg.Window('Control Panel Configuration Launcher - TDai', layout_configuration, resizable=True, icon=r'C:\NFTT\BTC\Test\VINODDD\Main\IMG\tree.ico')
     
 
     while True:
@@ -63,8 +66,11 @@ def configuration():
         glv.tecan_ip = values[12]
         glv.tecan_port = int(values[13])
         
-        glv.N92_ip = values[14]
-        glv.N92_port = int(values[15])
+        glv.N91_ip = values[14]
+        glv.N91_port = int(values[15])
+        
+        glv.N92_ip = values[16]
+        glv.N92_port = int(values[17])
 
         break
     window_configuration.close()
@@ -83,6 +89,7 @@ def init():
     glv.g_host_sub.connect(f"tcp://{glv.kla_ip}:{glv.kla_port}")
     glv.g_host_sub.connect(f"tcp://{glv.gpc_ip}:{glv.gpc_port}")
     glv.g_host_sub.connect(f"tcp://{glv.tecan_ip}:{glv.tecan_port}")
+    glv.g_host_sub.connect(f"tcp://{glv.N91_ip}:{glv.N91_port}")
     glv.g_host_sub.connect(f"tcp://{glv.N92_ip}:{glv.N92_port}")
     
     glv.g_host_sub.setsockopt_string(zmq.SUBSCRIBE, '')

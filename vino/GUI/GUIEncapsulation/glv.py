@@ -20,6 +20,9 @@ gpc_port = None
 tecan_ip = None
 tecan_port = None
 
+N91_ip = None
+N91_port = None
+
 N92_ip = None
 N92_port = None
 
